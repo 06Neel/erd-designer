@@ -14,7 +14,7 @@
 
 <br />
 
-<img src="public/preview.png" alt="Database Schema Studio Preview" width="100%" style="border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);" />
+<img src="public/image.png" alt="Database Schema Studio Preview" width="100%" style="border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);" />
 
 *Design, visualize, analyze, and generate complex database schemas entirely within your browser—no backend or installation required.*
 
