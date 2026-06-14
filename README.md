@@ -30,7 +30,6 @@
   - [Visual Experience](#visual-experience)
   - [Data Engineering](#data-engineering)
 - [Quick Start](#-quick-start)
-- [Deployment](#-deployment)
 - [Architecture & Tech Stack](#-architecture--tech-stack)
 - [Keyboard Shortcuts](#-keyboard-shortcuts)
 - [Contributing](#-contributing)
@@ -88,37 +87,6 @@ npm run dev
 ```
 
 Navigate to `http://localhost:5173` to launch the studio locally.
-
----
-
-## 🌐 Deployment
-
-Database Schema Studio is a pure statically-generated Single Page Application (SPA), meaning it can be hosted on any static file server or CDN without needing a backend.
-
-### Vercel / Netlify
-1. Connect your GitHub repository.
-2. Set the Build Command to `npm run build`.
-3. Set the Publish Directory to `dist`.
-4. Deploy!
-
-### Docker (Nginx)
-If you prefer containerized deployment for internal company networks:
-
-```dockerfile
-# Build Stage
-FROM node:18-alpine AS builder
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
-
-# Production Stage
-FROM nginx:alpine
-COPY --from=builder /app/dist /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
-```
 
 ---
 
