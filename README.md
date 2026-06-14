@@ -4,6 +4,7 @@
 
 **A production-ready, local-first database design tool with a premium glassmorphic aesthetic.**
 
+[![Live Demo](https://img.shields.io/badge/Live_Demo-🚀_Launch-brightgreen.svg?style=for-the-badge)](https://database-schema-studio.netlify.app/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![Version](https://img.shields.io/badge/version-1.0.0-brightgreen.svg?style=for-the-badge)]()
 [![React](https://img.shields.io/badge/React-18.x-61DAFB?style=for-the-badge&logo=react&logoColor=black)]()
