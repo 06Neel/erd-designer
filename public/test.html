@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ERD Import Test</title>
+</head>
+<body>
+<h1>Testing ERD Designer import via script...</h1>
+<pre id="output"></pre>
+<script type="module">
+import useERDStore from '/src/store/useERDStore.js';
+
+const output = document.getElementById('output');
+function log(msg) {
+  output.textContent += msg + '\n';
+  console.log(msg);
+}
+
+async function runTests() {
+  log('=== ERD Designer Import Test ===\n');
+
+  // Test 1: DDL Parser
+  log('TEST 1: SQL DDL Parser');
+  const response = await fetch('/test-schema.sql');
+  const sql = await response.text();
+  log(`  SQL file loaded: ${sql.length} chars`);
+
+  const store = useERDStore.getState();
+  const result = await store.importFromSQL(sql, 'postgresql');
+  log(`  Tables imported: ${result.tableCount}`);
+  log(`  Parse errors: ${result.errors?.length || 0}`);
+  if (result.errors?.length > 0) {
+    result.errors.forEach(e => log(`    ERROR: ${e.message}`));
+  }
+
+  // Verify entities
+  const state = useERDStore.getState();
+  const entities = Object.values(state.schema.entities);
+  log(`  Entities in store: ${entities.length}`);
+  entities.forEach(e => {
+    log(`    - ${e.name} (${e.attributes.length} columns, pos: ${Math.round(e.position.x)},${Math.round(e.position.y)})`);
+  });
+
+  // Verify relations
+  const relations = Object.values(state.schema.relations);
+  log(`  Relations in store: ${relations.length}`);
+  relations.forEach(r => {
+    const src = state.schema.entities[r.sourceEntityId];
+    const tgt = state.schema.entities[r.targetEntityId];
+    const srcAttr = src?.attributes.find(a => a.id === r.sourceAttributeId);
+    const tgtAttr = tgt?.attributes.find(a => a.id === r.targetAttributeId);
+    log(`    - ${r.name}: ${src?.name}.${srcAttr?.name} → ${tgt?.name}.${tgtAttr?.name} (${r.type}, ON DELETE ${r.onDelete})`);
+  });
+
+  // Test 2: SQL Generator
+  log('\nTEST 2: SQL Generator');
+  const dialects = ['postgresql', 'mysql', 'sqlite', 'mssql'];
+  for (const dialect of dialects) {
+    const sql = store.exportToSQL(dialect);
+    const tableCount = (sql.match(/CREATE TABLE/gi) || []).length;
+    log(`  ${dialect}: ${sql.length} chars, ${tableCount} CREATE TABLE statements`);
+  }
+
+  // Test 3: JSON Export
+  log('\nTEST 3: JSON Export');
+  const json = store.exportToJSON();
+  const parsed = JSON.parse(json);
+  log(`  Version: ${parsed._erd_designer_version}`);
+  log(`  Tables: ${Object.keys(parsed.schema.entities).length}`);
+  log(`  Relations: ${Object.keys(parsed.schema.relations).length}`);
+
+  // Test 4: Undo/Redo
+  log('\nTEST 4: Undo/Redo');
+  const before = Object.keys(useERDStore.getState().schema.entities).length;
+  store.addEntity({ x: 500, y: 500 });
+  const after = Object.keys(useERDStore.getState().schema.entities).length;
+  log(`  Before addEntity: ${before} tables`);
+  log(`  After addEntity: ${after} tables`);
+  store.undo();
+  const afterUndo = Object.keys(useERDStore.getState().schema.entities).length;
+  log(`  After undo: ${afterUndo} tables`);
+  store.redo();
+  const afterRedo = Object.keys(useERDStore.getState().schema.entities).length;
+  log(`  After redo: ${afterRedo} tables`);
+  store.undo(); // clean up
+
+  // Test 5: Validation
+  log('\nTEST 5: Schema Validation');
+  const { validateSchema } = await import('/src/utils/validators.js');
+  const { errors, warnings } = validateSchema(useERDStore.getState().schema);
+  log(`  Errors: ${errors.length}`);
+  errors.forEach(e => log(`    ERROR: ${e.message}`));
+  log(`  Warnings: ${warnings.length}`);
+  warnings.forEach(w => log(`    WARNING: ${w.message}`));
+
+  log('\n=== ALL TESTS COMPLETE ===');
+}
+
+runTests().catch(err => {
+  log(`FATAL ERROR: ${err.message}`);
+  log(err.stack);
+});
+</script>
+</body>
+</html>
