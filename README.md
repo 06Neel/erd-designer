@@ -76,7 +76,7 @@ Because it operates entirely **local-first** in the browser, your proprietary sc
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/yourusername/erd-designer.git
+git clone https://github.com/06Neel/erd-designer.git
 cd erd-designer
 
 # 2. Install Dependencies
