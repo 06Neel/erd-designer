@@ -7,8 +7,8 @@ function getInitialTheme() {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored === 'light' || stored === 'dark') return stored;
   } catch {}
-  // Default to dark
-  return 'dark';
+  // Default to light
+  return 'light';
 }
 
 function applyTheme(theme) {
