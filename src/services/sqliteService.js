@@ -1,5 +1,8 @@
 import { generateId } from '../utils/ids.js';
 
+const PALETTE = ['#6366f1', '#ec4899', '#8b5cf6', '#14b8a6', '#f59e0b', '#ef4444', '#3b82f6', '#10b981', '#f43f5e', '#06b6d4', '#84cc16'];
+const getRandomColor = () => PALETTE[Math.floor(Math.random() * PALETTE.length)];
+
 let SQL = null;
 
 async function getSQL() {
@@ -38,7 +41,7 @@ export async function readSQLiteSchema(uint8Array) {
         name: tableName,
         attributes: [],
         position: { x: 0, y: 0 },
-        color: '#6366f1',
+        color: getRandomColor(),
         comment: '',
       };
 
