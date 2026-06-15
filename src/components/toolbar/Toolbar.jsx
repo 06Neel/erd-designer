@@ -3,7 +3,6 @@ import {
   Menu,
   Undo2,
   Redo2,
-  Layout,
   Upload,
   Download,
   Save,
@@ -39,8 +38,6 @@ export default function Toolbar() {
   const redo = useERDStore((s) => s.redo);
   const past = useERDStore((s) => s.past);
   const future = useERDStore((s) => s.future);
-  const autoLayout = useERDStore((s) => s.autoLayout);
-  const isAutoLayoutRunning = useERDStore((s) => s.isAutoLayoutRunning);
   const saveProject = useERDStore((s) => s.saveProject);
   const addEntity = useERDStore((s) => s.addEntity);
   const toggleSidebar = useERDStore((s) => s.toggleSidebar);
@@ -135,10 +132,6 @@ export default function Toolbar() {
 
           <Tooltip content="Redo (Ctrl+Shift+Z)">
             <Button variant="ghost" size="sm" icon={Redo2} onClick={redo} disabled={future.length === 0} className="toolbar-btn" />
-          </Tooltip>
-
-          <Tooltip content="Auto Layout (Ctrl+L)">
-            <Button variant="ghost" size="sm" icon={Layout} onClick={autoLayout} disabled={isAutoLayoutRunning} className="toolbar-btn" />
           </Tooltip>
 
           <div className="w-px h-5 bg-border/20 mx-1" />

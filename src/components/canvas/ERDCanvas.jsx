@@ -160,7 +160,7 @@ export default function ERDCanvas() {
     [deleteRelation]
   );
 
-  const bgColor = theme === 'light' ? '#cbd5e1' : '#374151';
+  const bgColor = theme === 'light' ? '#cbd5e1' : '#363c58';
   const minimapMask = theme === 'light' ? 'rgba(0,0,0,0.08)' : 'rgba(0,0,0,0.6)';
 
   return (

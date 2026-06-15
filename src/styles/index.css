@@ -5,61 +5,75 @@
 /* ========== THEME VARIABLES ========== */
 :root,
 [data-theme="dark"] {
-  --color-canvas: #0a0c14;
-  --color-surface: #1a1d27;
-  --color-surface2: #242736;
-  --color-border: #2e3347;
-  --color-text-primary: #e2e8f0;
-  --color-text-secondary: #cbd5e1;
-  --color-muted: #8892a4;
-  --color-accent: #6366f1;
-  --color-accent-hover: #818cf8;
+  /* Canvas = deepest/darkest layer (lightened ~25%) */
+  --color-canvas: #0e1120;
+  /* Surface = clearly distinct from canvas */
+  --color-surface: #1c2035;
+  /* Surface2 = lighter for hover/active states */
+  --color-surface2: #272c42;
+  /* Borders clearly visible */
+  --color-border: #363c58;
+  --color-text-primary: #e8ecf4;
+  --color-text-secondary: #b4bdd0;
+  --color-muted: #7b8aa6;
+  --color-accent: #7c6cf0;
+  --color-accent-hover: #a78bfa;
 
-  /* Glass backgrounds */
-  --glass-bg: rgba(15, 17, 23, 0.75);
-  --glass-bg-strong: rgba(20, 23, 33, 0.92);
-  --glass-border: rgba(99, 102, 241, 0.08);
-  --glass-shadow: rgba(0, 0, 0, 0.3);
-  --glass-shadow-strong: rgba(0, 0, 0, 0.5);
+  /* Glass backgrounds — noticeably lighter than canvas */
+  --glass-bg: rgba(30, 34, 55, 0.9);
+  --glass-bg-strong: rgba(36, 40, 62, 0.96);
+  --glass-border: rgba(124, 108, 240, 0.18);
+  --glass-shadow: rgba(0, 0, 0, 0.4);
+  --glass-shadow-strong: rgba(0, 0, 0, 0.55);
 
   /* Node colors */
-  --node-bg: rgba(20, 23, 33, 0.95);
-  --node-border: rgba(46, 51, 71, 0.5);
-  --node-border-selected: rgba(99, 102, 241, 0.5);
-  --node-hover-bg: rgba(255, 255, 255, 0.02);
+  --node-bg: rgba(30, 34, 55, 0.97);
+  --node-border: rgba(54, 60, 88, 0.7);
+  --node-border-selected: rgba(124, 108, 240, 0.7);
+  --node-hover-bg: rgba(124, 108, 240, 0.06);
 
   /* Edge colors */
-  --edge-color: #4b5563;
-  --edge-label-bg: rgba(20, 23, 33, 0.6);
+  --edge-color: #556090;
+  --edge-label-bg: rgba(30, 34, 55, 0.85);
 
   /* Handle colors */
-  --handle-bg: rgba(75, 85, 99, 0.6);
-  --handle-border: rgba(30, 33, 47, 0.9);
+  --handle-bg: rgba(85, 96, 144, 0.6);
+  --handle-border: rgba(30, 34, 55, 0.95);
 
   /* Ambient */
-  --ambient-1: rgba(99, 102, 241, 0.06);
-  --ambient-2: rgba(139, 92, 246, 0.04);
-  --ambient-3: rgba(6, 182, 212, 0.03);
+  --ambient-1: rgba(124, 108, 240, 0.1);
+  --ambient-2: rgba(167, 139, 250, 0.07);
+  --ambient-3: rgba(34, 211, 238, 0.05);
+  --ambient-4: rgba(244, 114, 182, 0.04);
 
   /* Color dot ring */
-  --dot-ring: #0a0c14;
+  --dot-ring: #0e1120;
 
   /* Modal */
-  --modal-backdrop: rgba(0, 0, 0, 0.6);
+  --modal-backdrop: rgba(4, 6, 14, 0.7);
 
   /* Minimap */
-  --minimap-mask: rgba(0, 0, 0, 0.5);
-  --minimap-bg: rgba(15, 17, 25, 0.85);
+  --minimap-mask: rgba(0, 0, 0, 0.45);
+  --minimap-bg: rgba(26, 30, 48, 0.92);
 
   /* Sidebar */
-  --sidebar-bg: rgba(13, 15, 22, 0.95);
-  --sidebar-border: rgba(99, 102, 241, 0.1);
-  --sidebar-shadow: 4px 0 24px rgba(0, 0, 0, 0.4), inset -1px 0 0 rgba(99, 102, 241, 0.05);
-  --sidebar-gradient-top: rgba(99, 102, 241, 0.03);
-  --sidebar-gradient-bottom: rgba(0, 0, 0, 0.2);
-  --sidebar-item-hover-bg: linear-gradient(90deg, rgba(99, 102, 241, 0.08), rgba(99, 102, 241, 0.02));
-  --sidebar-item-active-bg: rgba(99, 102, 241, 0.06);
-  --sidebar-item-active-gradient: linear-gradient(90deg, rgba(99, 102, 241, 0.12), rgba(99, 102, 241, 0.03));
+  --sidebar-bg: rgba(24, 28, 46, 0.98);
+  --sidebar-border: rgba(54, 60, 88, 0.8);
+  --sidebar-shadow: 4px 0 32px rgba(0, 0, 0, 0.5), inset -1px 0 0 rgba(124, 108, 240, 0.1);
+  --sidebar-gradient-top: rgba(124, 108, 240, 0.06);
+  --sidebar-gradient-bottom: rgba(0, 0, 0, 0.15);
+  --sidebar-item-hover-bg: linear-gradient(90deg, rgba(124, 108, 240, 0.12), rgba(124, 108, 240, 0.03));
+  --sidebar-item-active-bg: rgba(124, 108, 240, 0.1);
+  --sidebar-item-active-gradient: linear-gradient(90deg, rgba(124, 108, 240, 0.18), rgba(124, 108, 240, 0.04));
+
+  /* Toolbar */
+  --toolbar-bg: rgba(24, 28, 46, 0.98);
+  --toolbar-border: rgba(54, 60, 88, 0.9);
+  --toolbar-glow: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 4px 24px rgba(0, 0, 0, 0.4), 0 1px 0 rgba(124, 108, 240, 0.08);
+
+  /* Canvas controls pill */
+  --controls-bg: rgba(30, 34, 55, 0.94);
+  --controls-border: rgba(54, 60, 88, 0.9);
 }
 
 [data-theme="light"] {
@@ -118,6 +132,15 @@
   --sidebar-item-hover-bg: linear-gradient(90deg, rgba(99, 102, 241, 0.06), rgba(99, 102, 241, 0.01));
   --sidebar-item-active-bg: rgba(99, 102, 241, 0.04);
   --sidebar-item-active-gradient: linear-gradient(90deg, rgba(99, 102, 241, 0.1), rgba(99, 102, 241, 0.02));
+
+  /* Toolbar — light mode */
+  --toolbar-bg: rgba(255, 255, 255, 0.88);
+  --toolbar-border: rgba(224, 227, 235, 0.9);
+  --toolbar-glow: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 4px 16px rgba(0, 0, 0, 0.04);
+
+  /* Canvas controls pill — light mode */
+  --controls-bg: rgba(255, 255, 255, 0.88);
+  --controls-border: rgba(224, 227, 235, 0.9);
 }
 
 @layer base {
@@ -143,11 +166,11 @@
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: rgba(99, 102, 241, 0.3);
+    background: rgba(124, 108, 240, 0.3);
     border-radius: 10px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(99, 102, 241, 0.5);
+    background: rgba(124, 108, 240, 0.5);
   }
 }
 
@@ -171,19 +194,21 @@
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(ellipse at 20% 50%, var(--ambient-1) 0%, transparent 50%),
-              radial-gradient(ellipse at 80% 20%, var(--ambient-2) 0%, transparent 50%),
-              radial-gradient(ellipse at 50% 80%, var(--ambient-3) 0%, transparent 50%);
-  animation: ambientShift 20s ease-in-out infinite alternate;
+  background: radial-gradient(ellipse at 15% 50%, var(--ambient-1) 0%, transparent 50%),
+              radial-gradient(ellipse at 85% 15%, var(--ambient-2) 0%, transparent 45%),
+              radial-gradient(ellipse at 50% 85%, var(--ambient-3) 0%, transparent 50%),
+              radial-gradient(ellipse at 70% 60%, var(--ambient-4, transparent) 0%, transparent 40%);
+  animation: ambientShift 30s ease-in-out infinite alternate;
   pointer-events: none;
   z-index: 0;
 }
 
 @keyframes ambientShift {
   0% { transform: translate(0, 0) rotate(0deg); }
-  33% { transform: translate(2%, -1%) rotate(1deg); }
-  66% { transform: translate(-1%, 2%) rotate(-1deg); }
-  100% { transform: translate(1%, -2%) rotate(0.5deg); }
+  25% { transform: translate(3%, -2%) rotate(0.8deg); }
+  50% { transform: translate(-2%, 3%) rotate(-0.5deg); }
+  75% { transform: translate(1%, -1%) rotate(0.3deg); }
+  100% { transform: translate(-1%, 2%) rotate(-0.3deg); }
 }
 
 /* ========== GLASSMORPHISM COMPONENTS ========== */
@@ -196,18 +221,40 @@
 
 /* ========== TOOLBAR ========== */
 .toolbar {
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid var(--glass-border);
-  box-shadow: 0 4px 30px var(--glass-shadow);
+  background: var(--toolbar-bg);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border-bottom: 1px solid var(--toolbar-border);
+  box-shadow: var(--toolbar-glow);
+  position: relative;
+  z-index: 50;
+}
+[data-theme="dark"] .toolbar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(124, 108, 240, 0.25), rgba(167, 139, 250, 0.15), transparent);
+  pointer-events: none;
+}
+[data-theme="dark"] .toolbar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(54, 60, 88, 0.8), transparent);
+  pointer-events: none;
 }
 .toolbar-btn {
   position: relative;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .toolbar-btn:hover {
-  background: rgba(99, 102, 241, 0.1);
+  background: rgba(124, 108, 240, 0.14);
   transform: translateY(-1px);
 }
 .toolbar-btn:active {
@@ -220,7 +267,7 @@
   border-radius: inherit;
   opacity: 0;
   transition: opacity 0.2s;
-  background: radial-gradient(circle at center, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+  background: radial-gradient(circle at center, rgba(124, 108, 240, 0.22) 0%, transparent 70%);
 }
 .toolbar-btn:hover::after {
   opacity: 1;
@@ -231,7 +278,7 @@
   background: var(--sidebar-bg);
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border-right: 1px solid var(--sidebar-border);
+  border-right: 2px solid var(--sidebar-border);
   box-shadow: var(--sidebar-shadow);
   position: relative;
   z-index: 10;
@@ -299,19 +346,19 @@
 /* ========== ENTITY NODE ========== */
 .entity-node {
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 20px var(--glass-shadow-strong),
-              0 0 0 1px rgba(99, 102, 241, 0.05);
+  box-shadow: 0 4px 24px var(--glass-shadow-strong),
+              0 0 0 1px rgba(124, 108, 240, 0.06);
 }
 .entity-node:hover {
-  box-shadow: 0 8px 40px var(--glass-shadow-strong),
-              0 0 0 1px rgba(99, 102, 241, 0.15),
-              0 0 30px rgba(99, 102, 241, 0.05);
-  transform: translateY(-2px);
+  box-shadow: 0 12px 48px var(--glass-shadow-strong),
+              0 0 0 1px rgba(124, 108, 240, 0.2),
+              0 0 40px rgba(124, 108, 240, 0.06);
+  transform: translateY(-3px);
 }
 .react-flow__node.selected .entity-node {
-  box-shadow: 0 8px 40px rgba(99, 102, 241, 0.2),
-              0 0 0 2px rgba(99, 102, 241, 0.5),
-              0 0 60px rgba(99, 102, 241, 0.08);
+  box-shadow: 0 12px 48px rgba(124, 108, 240, 0.2),
+              0 0 0 2px rgba(124, 108, 240, 0.5),
+              0 0 80px rgba(124, 108, 240, 0.1);
 }
 
 /* Entity node appear animation */
@@ -346,13 +393,13 @@
   opacity: 1 !important;
   background: var(--color-accent) !important;
   border-color: var(--color-canvas) !important;
-  transform: scale(1.4);
-  box-shadow: 0 0 12px rgba(99, 102, 241, 0.5);
+  transform: scale(1.5);
+  box-shadow: 0 0 16px rgba(124, 108, 240, 0.6), 0 0 4px rgba(124, 108, 240, 0.3);
 }
 .react-flow__handle.connecting {
-  background: #22c55e !important;
+  background: #34d399 !important;
   opacity: 1 !important;
-  box-shadow: 0 0 12px rgba(34, 197, 94, 0.5);
+  box-shadow: 0 0 16px rgba(52, 211, 153, 0.5), 0 0 4px rgba(52, 211, 153, 0.3);
 }
 
 /* ========== EDGES ========== */
@@ -363,18 +410,18 @@
 .react-flow__edge:hover .react-flow__edge-path {
   stroke-width: 2.5;
   opacity: 1 !important;
-  filter: drop-shadow(0 0 4px rgba(99, 102, 241, 0.3));
+  filter: drop-shadow(0 0 6px rgba(124, 108, 240, 0.35));
 }
 .react-flow__edge.selected .react-flow__edge-path {
   stroke-width: 3;
   opacity: 1 !important;
-  filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.4));
+  filter: drop-shadow(0 0 10px rgba(124, 108, 240, 0.45));
 }
 .react-flow__edge-interaction {
   stroke-width: 20;
 }
 .react-flow__connection-path {
-  stroke: #6366f1 !important;
+  stroke: #7c6cf0 !important;
   stroke-width: 2 !important;
   stroke-dasharray: 8, 4;
   animation: dashMove 0.5s linear infinite;
@@ -400,16 +447,16 @@
 
 /* ---- Minimap Premium Glass ---- */
 .react-flow__minimap {
-  background: var(--glass-bg) !important;
+  background: var(--minimap-bg) !important;
   backdrop-filter: blur(16px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
-  border: 1px solid var(--glass-border) !important;
+  border: 1px solid var(--color-border) !important;
   border-radius: 14px !important;
   box-shadow:
     0 8px 32px var(--glass-shadow),
     inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
   overflow: hidden !important;
-  opacity: 0.85;
+  opacity: 0.9;
   transition: opacity 0.3s ease, box-shadow 0.3s ease;
 }
 .react-flow__minimap:hover {
@@ -417,7 +464,7 @@
   box-shadow:
     0 12px 40px var(--glass-shadow),
     inset 0 1px 0 rgba(255, 255, 255, 0.1),
-    0 0 0 1px rgba(99, 102, 241, 0.15) !important;
+    0 0 0 1px rgba(124, 108, 240, 0.2) !important;
 }
 
 /* Minimap node shapes */
@@ -453,45 +500,60 @@
 
 /* ========== CANVAS CONTROLS ========== */
 .canvas-controls {
-  background: var(--glass-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--glass-border);
-  box-shadow: 0 4px 20px var(--glass-shadow);
+  background: var(--controls-bg);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid var(--controls-border);
+  box-shadow: 0 4px 24px var(--glass-shadow), inset 0 1px 0 rgba(255,255,255,0.04);
   animation: controlsAppear 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
 }
 @keyframes controlsAppear {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
+/* Individual control buttons */
+.canvas-controls button {
+  transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+.canvas-controls button:hover:not(:disabled) {
+  background: rgba(124, 108, 240, 0.16) !important;
+  transform: scale(1.08);
+}
+/* Divider between button groups */
+.canvas-controls .border-t {
+  border-color: var(--color-border) !important;
+  margin-left: 6px;
+  margin-right: 6px;
+}
 
 /* ========== BUTTONS ========== */
 .btn-primary {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3),
-              inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, #7c6cf0, #a78bfa);
+  box-shadow: 0 4px 18px rgba(124, 108, 240, 0.35),
+              inset 0 1px 0 rgba(255, 255, 255, 0.12);
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .btn-primary:hover {
-  box-shadow: 0 6px 25px rgba(99, 102, 241, 0.4),
-              inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  background: linear-gradient(135deg, #8b7cf5, #b49bff);
+  box-shadow: 0 8px 30px rgba(124, 108, 240, 0.45),
+              inset 0 1px 0 rgba(255, 255, 255, 0.18);
   transform: translateY(-1px);
 }
 .btn-primary:active {
   transform: translateY(0) scale(0.98);
-  box-shadow: 0 2px 10px rgba(99, 102, 241, 0.2);
+  box-shadow: 0 2px 12px rgba(124, 108, 240, 0.25);
 }
 .btn-ghost {
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .btn-ghost:hover {
-  background: rgba(99, 102, 241, 0.1);
+  background: rgba(124, 108, 240, 0.1);
 }
 
 /* ========== INPUT FOCUS GLOW ========== */
 input:focus, textarea:focus, select:focus {
-  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2),
-              0 0 20px rgba(99, 102, 241, 0.05);
+  box-shadow: 0 0 0 2px rgba(124, 108, 240, 0.25),
+              0 0 24px rgba(124, 108, 240, 0.06);
 }
 
 /* ========== BADGE PULSE ========== */
@@ -538,20 +600,23 @@ input:focus, textarea:focus, select:focus {
 .modal-content {
   animation: modalSlideUp 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   background: var(--glass-bg-strong);
-  backdrop-filter: blur(24px);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
   border: 1px solid var(--glass-border);
-  box-shadow: 0 25px 80px var(--glass-shadow-strong),
-              0 0 0 1px rgba(99, 102, 241, 0.05),
-              0 0 60px rgba(99, 102, 241, 0.05);
+  box-shadow: 0 25px 100px var(--glass-shadow-strong),
+              0 0 0 1px rgba(124, 108, 240, 0.08),
+              0 0 80px rgba(124, 108, 240, 0.06);
 }
 
 /* ========== CONTEXT MENU ========== */
 .context-menu {
   animation: contextMenuIn 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   background: var(--glass-bg-strong);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid var(--glass-border);
-  box-shadow: 0 10px 40px var(--glass-shadow-strong);
+  box-shadow: 0 12px 48px var(--glass-shadow-strong),
+              0 0 0 1px rgba(124, 108, 240, 0.05);
 }
 @keyframes contextMenuIn {
   from { opacity: 0; transform: scale(0.9) translateY(-5px); }
@@ -570,8 +635,8 @@ input:focus, textarea:focus, select:focus {
   animation: emptyStatePulse 3s ease-in-out infinite;
 }
 @keyframes emptyStatePulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.2); }
-  50% { box-shadow: 0 0 30px 10px rgba(99, 102, 241, 0.1); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(124, 108, 240, 0.25); }
+  50% { box-shadow: 0 0 40px 12px rgba(124, 108, 240, 0.12); }
 }
 
 /* ========== COLOR PICKER ========== */
@@ -589,10 +654,10 @@ input:focus, textarea:focus, select:focus {
 
 /* ========== SCROLLBAR ========== */
 .overflow-y-auto::-webkit-scrollbar-thumb {
-  background: rgba(99, 102, 241, 0.2);
+  background: rgba(124, 108, 240, 0.2);
 }
 .overflow-y-auto:hover::-webkit-scrollbar-thumb {
-  background: rgba(99, 102, 241, 0.4);
+  background: rgba(124, 108, 240, 0.4);
 }
 
 /* ========== DRAG HANDLE ========== */
@@ -609,7 +674,7 @@ input:focus, textarea:focus, select:focus {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .logo-icon:hover {
-  filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.5));
+  filter: drop-shadow(0 0 10px rgba(124, 108, 240, 0.6));
   transform: rotate(5deg) scale(1.1);
 }
 
@@ -629,7 +694,7 @@ input:focus, textarea:focus, select:focus {
 }
 .theme-toggle:hover {
   border-color: var(--color-accent);
-  box-shadow: 0 0 12px rgba(99, 102, 241, 0.2);
+  box-shadow: 0 0 16px rgba(124, 108, 240, 0.25);
 }
 .theme-toggle-thumb {
   width: 18px;
@@ -640,7 +705,7 @@ input:focus, textarea:focus, select:focus {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 2px 10px rgba(124, 108, 240, 0.35);
 }
 [data-theme="light"] .theme-toggle-thumb {
   transform: translateX(20px);
@@ -652,9 +717,11 @@ input:focus, textarea:focus, select:focus {
 .type-dropdown {
   animation: dropdownIn 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   background: var(--glass-bg-strong);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid var(--glass-border);
-  box-shadow: 0 10px 40px var(--glass-shadow-strong);
+  box-shadow: 0 12px 48px var(--glass-shadow-strong),
+              0 0 0 1px rgba(124, 108, 240, 0.05);
 }
 @keyframes dropdownIn {
   from { opacity: 0; transform: translateY(-5px); }
@@ -663,10 +730,10 @@ input:focus, textarea:focus, select:focus {
 
 /* ========== STATUS BAR ========== */
 .status-bar {
-  background: var(--glass-bg);
+  background: var(--toolbar-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-top: 1px solid var(--glass-border);
+  border-top: 1px solid var(--toolbar-border);
 }
 
 /* ========== SEARCH BAR GLOW ========== */
@@ -674,7 +741,62 @@ input:focus, textarea:focus, select:focus {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .search-bar:focus-within {
-  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2),
-              0 0 20px rgba(99, 102, 241, 0.05);
+  box-shadow: 0 0 0 2px rgba(124, 108, 240, 0.25),
+              0 0 24px rgba(124, 108, 240, 0.06);
   border-color: var(--color-accent) !important;
+}
+
+/* ========== DARK MODE PREMIUM ENHANCEMENTS ========== */
+
+/* Subtle canvas vignette for depth */
+[data-theme="dark"] .react-flow__background {
+  background: radial-gradient(ellipse at center, #111628 0%, #0a0e1c 100%) !important;
+}
+
+/* Sidebar top accent line */
+[data-theme="dark"] .sidebar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(124, 108, 240, 0.3), rgba(167, 139, 250, 0.2), transparent);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Side panel top accent line */
+[data-theme="dark"] .side-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(124, 108, 240, 0.1), transparent);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Canvas controls glow ring on dark — clearly elevated above canvas */
+[data-theme="dark"] .canvas-controls {
+  box-shadow: 0 4px 28px rgba(0, 0, 0, 0.6),
+              0 0 0 1px rgba(124, 108, 240, 0.15),
+              inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Selection box styling */
+[data-theme="dark"] .react-flow__selection {
+  background: rgba(124, 108, 240, 0.08) !important;
+  border: 1px solid rgba(124, 108, 240, 0.3) !important;
+  border-radius: 4px;
+}
+
+/* Minimap premium dark glass — brighter visible borders */
+[data-theme="dark"] .react-flow__minimap {
+  box-shadow:
+    0 8px 40px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 0 0 1px rgba(124, 108, 240, 0.12) !important;
 }

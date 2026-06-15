@@ -8,8 +8,7 @@ import {
   Map,
   Download,
 } from 'lucide-react';
-import { useReactFlow, getNodesBounds } from '@xyflow/react';
-import { toBlob } from 'html-to-image';
+import { useReactFlow } from '@xyflow/react';
 import useERDStore from '../../store/useERDStore.js';
 import Tooltip from '../ui/Tooltip.jsx';
 import { addToast } from '../ui/Toast.jsx';
@@ -44,12 +43,6 @@ export default function CanvasControls({ showMinimap, onToggleMinimap }) {
   }, [exportImage, projectName]);
 
   const handleExportPng = useCallback(async () => {
-    const viewport = document.querySelector('.react-flow__viewport');
-    if (!viewport) {
-      addToast('Cannot find canvas viewport', 'error');
-      return;
-    }
-
     const nodes = getNodes();
     if (nodes.length === 0) {
       addToast('No tables to export', 'warning');
@@ -58,57 +51,84 @@ export default function CanvasControls({ showMinimap, onToggleMinimap }) {
 
     try {
       setIsExporting(true);
-      addToast('Generating PNG diagram…', 'info');
+      addToast('Generating PNG…', 'info');
 
-      // Calculate bounding box of all nodes
-      const bounds = getNodesBounds(nodes);
-      const padding = 80;
-      const imageWidth = bounds.width + padding * 2;
-      const imageHeight = bounds.height + padding * 2;
+      // ── Capture the outer React Flow container ────────────────────────────
+      // We capture .react-flow (the visible canvas window) directly, at its
+      // natural size. This gives exactly what the user sees — same as the
+      // white rectangle in the minimap. No transform math needed.
+      const canvasEl = document.querySelector('.react-flow');
+      if (!canvasEl) {
+        addToast('Cannot find canvas element', 'error');
+        return;
+      }
 
-      const blob = await toBlob(viewport, {
-        backgroundColor: getComputedStyle(document.documentElement)
+      const bgColor =
+        getComputedStyle(document.documentElement)
           .getPropertyValue('--color-canvas')
-          .trim(),
-        width: imageWidth,
-        height: imageHeight,
-        style: {
-          width: `${imageWidth}px`,
-          height: `${imageHeight}px`,
-          transform: `translate(${-bounds.x + padding}px, ${-bounds.y + padding}px) scale(1)`,
-        },
-        pixelRatio: 2, // 2x is highly crisp (Retina quality) and keeps memory usage stable
+          .trim() || '#0f1117';
+
+      // ── Strip backdrop-filter & decorative blur before capture ────────────
+      // html-to-image cannot render CSS backdrop-filter or filter:blur().
+      // We disable them temporarily, then restore after capture.
+      const affected = [];
+      canvasEl.querySelectorAll('*').forEach((el) => {
+        const cs = getComputedStyle(el);
+
+        const bf = cs.backdropFilter || cs.webkitBackdropFilter;
+        if (bf && bf !== 'none' && bf !== '') {
+          affected.push({ el, backdropFilter: el.style.backdropFilter, webkitBackdropFilter: el.style.webkitBackdropFilter });
+          el.style.backdropFilter = 'none';
+          el.style.webkitBackdropFilter = 'none';
+        }
+
+        const f = cs.filter;
+        if (f && f.includes('blur') && el.tagName !== 'feGaussianBlur') {
+          affected.push({ el, filter: el.style.filter, _isFilter: true });
+          el.style.filter = 'none';
+        }
+      });
+
+      const { width, height } = canvasEl.getBoundingClientRect();
+
+      const exportOptions = {
+        backgroundColor: bgColor,
+        width,
+        height,
+        pixelRatio: 3, // 3× retina-quality
         filter: (node) => {
           if (node?.classList?.contains('react-flow__minimap')) return false;
           if (node?.classList?.contains('react-flow__panel')) return false;
           if (node?.classList?.contains('canvas-controls')) return false;
+          // Skip decorative glow orbs — they bleed outside overflow:hidden in html-to-image
+          if (
+            node?.classList?.contains('rounded-full') &&
+            (node?.classList?.contains('blur-xl') || node?.classList?.contains('blur-2xl'))
+          ) return false;
           return true;
         },
+      };
+
+      const { toPng } = await import('html-to-image');
+      // Warmup pass ensures fonts & images are embedded
+      await toPng(canvasEl, exportOptions);
+      const dataUrl = await toPng(canvasEl, exportOptions);
+
+      // ── Restore all modified styles ───────────────────────────────────────
+      affected.forEach(({ el, backdropFilter, webkitBackdropFilter, filter, _isFilter }) => {
+        if (_isFilter) {
+          el.style.filter = filter || '';
+        } else {
+          el.style.backdropFilter = backdropFilter || '';
+          el.style.webkitBackdropFilter = webkitBackdropFilter || '';
+        }
       });
 
-      if (!blob) {
-        throw new Error('Failed to capture canvas image data');
-      }
+      if (!dataUrl) throw new Error('Failed to capture canvas image');
+      if (exportImage) URL.revokeObjectURL(exportImage);
+      setExportImage(dataUrl);
+      addToast('PNG ready! Click "Download Image" to save.', 'success');
 
-      // If there was a previous object URL, revoke it
-      if (exportImage) {
-        URL.revokeObjectURL(exportImage);
-      }
-
-      const url = URL.createObjectURL(blob);
-      setExportImage(url);
-
-      const link = document.createElement('a');
-      const safeName = projectName.replace(/[^a-zA-Z0-9_-]/g, '_') || 'project';
-      link.download = `${safeName}_diagram.png`;
-      link.href = url;
-      
-      // Append to DOM to satisfy browser security rules for programmatic downloads
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      addToast('PNG generated! Preview modal opened.', 'success');
     } catch (err) {
       console.error('PNG export failed:', err);
       addToast(`PNG export failed: ${err.message}`, 'error');
@@ -162,8 +182,8 @@ export default function CanvasControls({ showMinimap, onToggleMinimap }) {
           <div className="p-3 bg-accent/5 rounded-xl border border-accent/10 text-xs text-textSecondary leading-relaxed">
             <span className="font-semibold text-accent">💡 Tips for saving:</span>
             <ul className="list-disc pl-4 mt-1 space-y-1">
-              <li>An automatic download was triggered. Look in your browser downloads or check if it completed.</li>
-              <li>If the file downloaded without an extension (like a random ID), or did not start at all, simply <strong>right-click (or tap and hold) the image below</strong> and choose <strong>"Save image as..."</strong> to save it directly as a PNG.</li>
+              <li>Click <strong>"Download Image"</strong> below to save a crisp, high-resolution PNG.</li>
+              <li>You can also <strong>right-click the image</strong> and choose <strong>"Save image as..."</strong> for a direct save.</li>
             </ul>
           </div>
 
